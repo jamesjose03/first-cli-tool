@@ -1,7 +1,11 @@
 const mycli = require('commander')
+const defineBanner = require('node-banner')
 
+const showBanner = async() => {
+    await defineBanner('First CLI', 'My first CLI-tool');
+}
 const reply = word => {
-    console.log("Reply: " + word);
+    console.log("\n Reply: " + word);
 }
 
 const collect = (val,arr) => {
@@ -11,9 +15,10 @@ const collect = (val,arr) => {
 mycli
 .option('-u, --username <name>', `specify the user's name`)
 .option('-s, --silent', `disable output`)
-.action(() => {
+.action(async() => {
+    await showBanner();
     if(!mycli.silent){
-        const name =  `Hello ${
+        const name =  ` \n Hello ${
             typeof mycli.username === 'string' ? mycli.username : 'world'
         }`
         reply(name);
